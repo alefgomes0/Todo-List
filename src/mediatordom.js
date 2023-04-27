@@ -1,6 +1,6 @@
-import { createTask } from "./createtask";
-import { InformationHolder } from "./informationholder";
-import { displayHomeTasks } from "./displayhometasks";
+import { createTask } from "./createtask.js";
+import { InformationHolder } from "./informationholder.js";
+import { displayTasks, displayAllTaskInfo } from "./displaytasks.js";
 
 
 export class MediatorDOM {
@@ -8,17 +8,31 @@ export class MediatorDOM {
     document.querySelector('.submit').addEventListener('click', () => {
       if (document.querySelector('form').checkValidity()) {
         InformationHolder.addTask(createTask());
-        console.log(InformationHolder.tasks);
-        console.log(InformationHolder.tasks[0].name);
-        console.log(InformationHolder.tasks[0].dueDate);
-        displayHomeTasks();
+        displayTasks();
       }
-    })
+    });
+  };
+
+  static showTaskInfo() {
+    document.querySelector('.main-content').addEventListener('click', (e) => {
+      if (e.target.classList.contains('task-n')) {
+        displayAllTaskInfo(Number(e.target.parentElement.id));
+      }
+    });
+  };
+
+  static closeTaskInfo() {
+    document.querySelector('.main-content').addEventListener('click', (e) => {
+      if (e.target.classList.contains('close-info')) e.target.parentElement.remove();
+    });
   }
 
   static deleteTaskDOM() {
     document.querySelector('.main-content').addEventListener('click', (e) => {
-      if (e.target.classList.contains('delete-task')) e.target.parentElement.remove();
-    })
-  }
-}
+      if (e.target.classList.contains('delete-task')) {
+        InformationHolder.removeTask(e.target.parentElement);
+        e.target.parentElement.remove();
+      }
+    });
+  };
+};
