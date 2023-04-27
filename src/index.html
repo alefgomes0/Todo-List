@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="header">
+      <h1>Todo List</h1>
+    </div>
+    <div class="main-content">
+      <div class="add-task">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 72 72"><path fill="#D0CFCE" d="M31 31V13h10v18h18v10H41v18H31V41H13V31z"/><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M31 31V13h10v18h18v10H41v18H31V41H13V31z"/></svg>
+        <h4>New Task</h4>
+      </div>
+      <h3 class="current-tab">Home</h3>
+      <div class="home-tasks">
+        <div class="home-tasks-header">
+          <h3>Name</h3>
+          <h3 class="due">Due Date</h3>
+        </div>
+      </div>
+      <form action="#" method="post">
+        <div class="widget">
+          <label for="task-name">Task Name<span>*</span></label>
+          <input type="text" id="task-name" name="task-name" required>
+        </div>
+        <div class="widget">
+          <label for="task-description">Task Description</label>
+          <textarea name="task-description" id="task-description" cols="30" rows="10"></textarea>
+        </div>
+        <div class="widget">
+          <label for="due-date">Due Date</label>
+          <input type="date" id="due-date" name="due-date">
+        </div>
+        <div class="widget">
+          <label for="priority">Priority:</label>
+          <select id="priority" name="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div class="form-buttons">
+          <svg class="submit" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#1de244" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z"/></svg>
+          <svg class="cancel" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#e7181d" d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z"/></svg>
+        </div>
+      </form>
+    </div>
+    <div class="sidebar">
+      <div class="home">Home</div>
+      <div class="today">Today</div>
+      <div class="week">Week</div>
+      <div class="projects">My Projects</div>
+    </div>
+    <div class="footer">
+      <p><a href="https://www.flaticon.com/free-icons/tick" title="tick icons">Tick icons created by Freepik - Flaticon</a></p>
+    </div>
+  </div>
+</body>
+</html>
