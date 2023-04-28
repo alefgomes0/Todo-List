@@ -5,9 +5,9 @@
     font-style: normal;
 }
 
-$primary-color: #a2b8b3;
+$primary-color: #111D44;
 $secondary-color: #b2b8b7;
-$complementary-color: #c23150;
+$complementary-color: #000;
 $yellow: #ffc600;
 $black: #272727;
 
@@ -26,14 +26,14 @@ html {
 .page-wrapper {
   display: grid;
   grid-template-rows: 2fr 8fr 1fr;
-  grid-template-columns: 2fr 9fr;
+  grid-template-columns: 1fr 6fr;
   height: 100%;
 }
  
 .header > h1 {
   font-size: 40px;
   font-weight: 800;
-  color: $complementary-color;
+  color: $secondary-color;
 }
 
 .header {
@@ -41,7 +41,8 @@ html {
   align-items: center;
   grid-row: 1 / 2;
   grid-column: 1 / -1;
-  background-color: $primary-color;
+  background: rgb(7,18,24);
+  background: linear-gradient(180deg, rgba(7,18,24,1) 25%, rgba(11,19,46,1) 50%, rgba(17,29,68,1) 75%, rgba(17,29,68,1) 100%);
   gap: 15px;
   padding: 0 30px;
 }
@@ -51,7 +52,7 @@ html {
   grid-row: 2 / 3;
   grid-column: 1 / 2;
   background-color: $secondary-color;
-  color: $black;
+  color: $primary-color;
   align-content: start;
   padding: 30px;
   gap: 30px;
@@ -105,7 +106,7 @@ html {
 }
 
 .current-tab {
-  color: $complementary-color;
+  color: $primary-color;
   font-size: 30px;
   font-weight: 600;
   justify-self: center;
@@ -122,10 +123,11 @@ form {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: $secondary-color;
-  color: $complementary-color;
+  color: $primary-color;
   font-weight: 500;
   padding: 10px 20px;
   border-radius: 10px;
+  box-shadow: 0 1px 1px;
 }
 
 .widget {
@@ -151,7 +153,7 @@ form {
   grid-column: 1 / -1;
 }
 
-.home-tasks-header {
+.tasks-header {
   display: inline-flex;
   justify-content: space-between;
   font-weight: 600;
@@ -182,7 +184,7 @@ form {
 
 .home-tasks > * {
   grid-column: 2 / 3;
-  border-bottom: 1px solid $complementary-color;
+  border-bottom: 1px solid $primary-color;
 }
 
 .delete-task {
@@ -198,16 +200,18 @@ form {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
-  gap: 10px;
+  gap: 5px;
   z-index: 99;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: $secondary-color;
-  color: $complementary-color;
-  font-weight: 500;
+  font-weight: 600;
   padding: 10px 20px;
   border-radius: 10px;
+  box-shadow: 0 1px 1px;
+  color: $primary-color;
+  overflow-y: auto;
 }
 
 .close-info {
@@ -238,4 +242,56 @@ a {
   grid-row: -2 / -1;
   grid-column: 1 / -1;
   background-color: $primary-color;
+  color: $secondary-color;
+}
+
+@media (max-width: 500px) {
+  .main-content {
+    grid-template-rows: auto auto 1fr;
+  }
+
+  .current-tab {
+    grid-row: 2 / 3;
+  }
+
+  .task {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
+    padding: 0 10px;
+  }
+
+  .home-tasks {
+    grid-row: 3 / -1;
+  }
+
+  .tasks-header {
+    padding: 0;
+  }
+
+  .task-date {
+    padding-right: 0;
+    justify-self: end;
+  }
+
+  .task > img {
+    justify-self: end;
+    grid-column: 2 / -1;
+    padding-right: 20px;
+    padding-bottom: 3px;
+  }
+
+  .info-display {
+    width: 50%;
+    height: 50%;
+    overflow: auto;
+  }
+
+  .due {
+    padding-right: 0;
+  }
+  
+  .task > * {
+    font-size: 12px;
+  }
 }

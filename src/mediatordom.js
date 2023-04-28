@@ -35,4 +35,25 @@ export class MediatorDOM {
       }
     });
   };
+
+  static adjustDeleteIcon() {
+    let messageDisplayed = false;
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= 500 && !messageDisplayed) {
+        console.log('...');
+        messageDisplayed = true;
+      } else if (window.innerWidth > 500) {
+        messageDisplayed = false;
+      }
+    });
+  };
+
+  static initialize() {
+    this.insertTaskDOM();
+    this.showTaskInfo();
+    this.closeTaskInfo();
+    this.deleteTaskDOM();
+    this.adjustDeleteIcon();
+  }
 };

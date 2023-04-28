@@ -8,10 +8,7 @@ import {displayTasks} from './displaytasks.js';
 
 
 adjustTickMark();
-MediatorDOM.insertTaskDOM();
-MediatorDOM.deleteTaskDOM();
-MediatorDOM.showTaskInfo();
-MediatorDOM.closeTaskInfo();
+MediatorDOM.initialize();
 const form = ManageForm();
 form.initialize();
 
