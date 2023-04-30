@@ -3,10 +3,9 @@ import deleteIconPath from './assets/icons/delete-icon.svg';
 import closeInfoPath from './assets/icons/close-info.svg';
 
 
-export function displayTasks() {
+export function displayTasks(iterateFrom = InformationHolder.tasks.length -1) {
   const homeTasks = document.querySelector('.home-tasks');
-  const tasksLength = InformationHolder.tasks.length;
-  for (let i = tasksLength - 1; i < tasksLength; i++) {
+  for (let i = iterateFrom; i < InformationHolder.tasks.length; i++) {
     const div = document.createElement('div');
     div.classList.add('task');
     div.setAttribute('id', i);

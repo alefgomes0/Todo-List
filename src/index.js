@@ -11,4 +11,6 @@ adjustTickMark();
 MediatorDOM.initialize();
 const form = ManageForm();
 form.initialize();
-
+if (JSON.parse(localStorage.getItem('tasks')).length > 0) {
+  displayTasks(0);
+}

@@ -1,11 +1,10 @@
 export class InformationHolder {
-  static tasks = [];
-
-  static projects = [];
-
+  static tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  static projects = JSON.parse(localStorage.getItem('projects')) || [];
 
   static addTask(someTask) {
     this.tasks.push(someTask);
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   static removeTask(aTask) {

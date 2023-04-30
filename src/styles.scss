@@ -236,7 +236,11 @@ form {
 
 a {
   text-decoration: none;
-  color: $black;
+  color: $secondary-color;
+}
+
+a:visited{
+  color: $secondary-color;
 }
 
 .footer {
