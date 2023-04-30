@@ -3,14 +3,16 @@ export class InformationHolder {
 
   static projects = [];
 
+
   static addTask(someTask) {
-    return this.tasks.push(someTask);
+    this.tasks.push(someTask);
   }
 
   static removeTask(aTask) {
     const taskIndex = Number(aTask.id);
     this.tasks.splice(taskIndex, 1);
     this.#adjustTasksId(taskIndex);
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   static #adjustTasksId(deletedTaskId) {

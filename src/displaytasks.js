@@ -2,6 +2,7 @@ import {InformationHolder} from './informationholder.js';
 import deleteIconPath from './assets/icons/delete-icon.svg';
 import closeInfoPath from './assets/icons/close-info.svg';
 
+
 export function displayTasks() {
   const homeTasks = document.querySelector('.home-tasks');
   const tasksLength = InformationHolder.tasks.length;
@@ -47,8 +48,9 @@ export function displayAllTaskInfo(arrayIndex) {
   closeInfo.src = closeInfoPath;
   closeInfo.classList.add('close-info');
   
-  const border = selectPriorityBorder(InformationHolder.tasks[arrayIndex].priority);
-  infoDisplay.style.border = border;
+  const priorityColor = selectPriorityBorder(InformationHolder.tasks[arrayIndex].priority);
+  infoDisplay.style.border = `2px solid ${priorityColor}`;
+  taskPriority.style.color = priorityColor;
 
   infoDisplay.appendChild(closeInfo);
   infoDisplay.appendChild(taskName);
@@ -60,7 +62,7 @@ export function displayAllTaskInfo(arrayIndex) {
 }
 
 function selectPriorityBorder(priority) {
-  if (priority === 'low') return '2px solid #2d7bd2';
-  if (priority === 'medium') return '2px solid #ffc600';
-  return '2px solid #ff0018';
+  if (priority === 'low') return '#2d7bd2';
+  if (priority === 'medium') return '#ffc600';
+  return '#ff0018';
 }

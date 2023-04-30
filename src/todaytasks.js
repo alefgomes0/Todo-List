@@ -8,9 +8,8 @@ export function changeCurrentTabName() {
   return currentTabName;
 }
 
-export function todayTasks() {
-  const numberOfTasks = InformationHolder.tasks.length;
-  for (let i = 0; i < numberOfTasks; i++) {
-    // ...
-  }
+
+function getTodayDate() {
+  const date = new Date();
+  return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
 }
