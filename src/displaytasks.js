@@ -10,6 +10,11 @@ export function displayTasks(iterateFrom = InformationHolder.tasks.length -1) {
     div.classList.add('task');
     div.setAttribute('id', i);
 
+    const taskDone = document.createElement('input');
+    taskDone.type = 'checkbox';
+    taskDone.classList.add('task-done');
+    div.appendChild(taskDone);
+
     const taskName = document.createElement('p');
     taskName.classList.add('task-n');
     taskName.textContent = InformationHolder.tasks[i].name;

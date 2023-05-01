@@ -158,7 +158,9 @@ form {
   justify-content: space-between;
   font-weight: 600;
   padding: 0 10px;
+  padding-left: 40px;
 }
+
 
 .due {
   padding-right: 30px;
@@ -167,6 +169,10 @@ form {
 .task {
   display: flex;
   padding: 0 10px;
+}
+
+.task-done {
+  margin-right: 10px;
 }
 
 .task-n {

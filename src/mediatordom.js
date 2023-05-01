@@ -30,6 +30,18 @@ export class MediatorDOM {
     });
   }
 
+  static crossTask() {
+    document.querySelector('.main-content').addEventListener('click', (e) => {
+      if (e.target.classList.contains('task-done')) {
+        const tasksNameAndDate = Array.from(e.target.parentNode.querySelectorAll('p'));
+        tasksNameAndDate.forEach((task) => {
+          if (e.target.checked === true) task.style.textDecoration = 'line-through';
+          else task.style.textDecoration = 'none';
+        })
+      }
+    })
+  }
+
   static deleteTaskDOM() {
     document.querySelector('.main-content').addEventListener('click', (e) => {
       if (e.target.classList.contains('delete-task')) {
@@ -86,6 +98,7 @@ export class MediatorDOM {
     this.insertTaskDOM();
     this.showTaskInfo();
     this.closeTaskInfo();
+    this.crossTask();
     this.showHomeTasks();
     this.showTodayTasks();
     this.showWeekTasks();
