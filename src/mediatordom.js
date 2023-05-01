@@ -1,8 +1,9 @@
 import { changeTabName } from "./header.js";
 import { createTask } from "./createtask.js";
 import { InformationHolder } from "./informationholder.js";
-import { displayTasks, displayAllTaskInfo, removeAllTasks } from "./displaytasks.js";
+import { displayTasks, displayAllTasks, displayAllTaskInfo} from "./displaytasks.js";
 import { displayTodayTasks } from "./todaytasks.js";
+import { displayWeekTasks } from "./weektasks.js";
 
 
 export class MediatorDOM {
@@ -41,8 +42,7 @@ export class MediatorDOM {
   static showHomeTasks() {
     document.querySelector('.home').addEventListener('click', () => {
       changeTabName('Home');
-      removeAllTasks();
-      displayTasks(0);
+      displayAllTasks();
     })
   }
  
@@ -53,32 +53,31 @@ export class MediatorDOM {
     });
   }
 
+  static showWeekTasks() {
+    document.querySelector('.week').addEventListener('click', () => {
+      changeTabName('Week');
+      displayAllTasks();
+      displayWeekTasks();
+    })
+  }
 
-  // Colocar o observer no .home-tasks. Checar se está no tab "Today" ou "Week".
-  // Aparentemente tem um atributo chamado "addedNodes", checar especificamente por isso
-  // Se for o caso, simular um click na aba 
 
   static updateTaskList() {
     const targetNode = document.querySelector('.home-tasks');
     const currentTab = document.querySelector('.current-tab');
-    const today = document.querySelector('.today');
 
     const config = {childList: true, subtree: true };
-
-    // Callback function to execute when mutations are observed
     const callback = (mutationList) => {
       for (const mutation of mutationList) {
-        if (mutation.type === 'childList' && mutation.addedNodes.length > 0 && currentTab.textContent === 'Today') {
-          console.log('A child node has been added.');
-          today.click();
+        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+          if (currentTab.textContent === 'Today' || currentTab.textContent === 'Week') {
+            document.querySelector(`.${currentTab.textContent.toLowerCase()}`).click();
+          }
         }
       }
     };
 
-    // Create an observer instance linked to the callback function
     const observer = new MutationObserver(callback);
-
-    // Start observing the target node for configured mutations
     observer.observe(targetNode, config);
   }
 
@@ -89,6 +88,7 @@ export class MediatorDOM {
     this.closeTaskInfo();
     this.showHomeTasks();
     this.showTodayTasks();
+    this.showWeekTasks();
     this.deleteTaskDOM();
     this.updateTaskList();
   }

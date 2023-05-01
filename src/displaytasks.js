@@ -66,6 +66,13 @@ function selectPriorityBorder(priority) {
   return '#ff0018';
 }
 
+export function displayAllTasks() {
+  const allTasks = document.querySelectorAll('.task-date');
+  allTasks.forEach(task => {
+    task.parentElement.style.display = 'flex';
+  });
+}
+
 export function removeAllTasks() {
   const allTasks = document.querySelectorAll('.home-tasks > :not(.tasks-header)');
   allTasks.forEach(task => task.remove());

@@ -1,7 +1,4 @@
-import {InformationHolder} from './informationholder.js';
-
-
-function getTodayDate() {
+export function getTodayDate() {
   const date = new Date();
   const year = date.getFullYear();
   let month = date.getMonth() + 1;
@@ -18,6 +15,6 @@ export function displayTodayTasks() {
   const todayDate = getTodayDate();
   const allTasks = document.querySelectorAll('.task-date');
   allTasks.forEach(task => {
-    if (task.textContent !== todayDate) task.parentElement.remove();
+    if (task.textContent !== todayDate) task.parentElement.style.display = 'none';
   });
 }
