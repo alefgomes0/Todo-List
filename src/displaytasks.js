@@ -65,3 +65,8 @@ function selectPriorityBorder(priority) {
   if (priority === 'medium') return '#ffc600';
   return '#ff0018';
 }
+
+export function removeAllTasks() {
+  const allTasks = document.querySelectorAll('.home-tasks > :not(.tasks-header)');
+  allTasks.forEach(task => task.remove());
+}

@@ -21,3 +21,8 @@ export function tasksHeader() {
   div.appendChild(header3);
   return div;
 }
+
+export function changeTabName(name) {
+  const currentTab = document.querySelector('.current-tab');
+  currentTab.textContent = name;
+}

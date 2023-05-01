@@ -5,6 +5,7 @@ import {InformationHolder} from './informationholder.js';
 import {createTask} from './createtask.js';
 import {MediatorDOM} from './mediatordom.js';
 import {displayTasks} from './displaytasks.js';
+import {displayTodayTasks} from './todaytasks.js';
 
 
 adjustTickMark();
