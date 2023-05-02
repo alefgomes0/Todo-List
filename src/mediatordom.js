@@ -4,10 +4,11 @@ import { InformationHolder } from "./informationholder.js";
 import { displayTasks, displayAllTasks, displayAllTaskInfo} from "./displaytasks.js";
 import { displayTodayTasks } from "./todaytasks.js";
 import { displayWeekTasks } from "./weektasks.js";
+import deleteProjectIcon from './assets/icons/delete-project.svg';
 
 
 export class MediatorDOM {
-  static insertTaskDOM() {
+  static insertTask() {
     document.querySelector('.submit').addEventListener('click', () => {
       if (document.querySelector('form').checkValidity()) {
         InformationHolder.addTask(createTask());
@@ -39,10 +40,10 @@ export class MediatorDOM {
           else task.style.textDecoration = 'none';
         })
       }
-    })
+    });
   }
 
-  static deleteTaskDOM() {
+  static deleteTask() {
     document.querySelector('.main-content').addEventListener('click', (e) => {
       if (e.target.classList.contains('delete-task')) {
         InformationHolder.removeTask(e.target.parentElement);
@@ -55,7 +56,7 @@ export class MediatorDOM {
     document.querySelector('.home').addEventListener('click', () => {
       changeTabName('Home');
       displayAllTasks();
-    })
+    });
   }
  
   static showTodayTasks() {
@@ -70,7 +71,7 @@ export class MediatorDOM {
       changeTabName('Week');
       displayAllTasks();
       displayWeekTasks();
-    })
+    });
   }
 
 
@@ -94,15 +95,15 @@ export class MediatorDOM {
   }
 
 
-  static insertProjectDOM() {
-    const form = document.querySelector('.project-form');
+  static insertProject() {
     document.querySelector('.projects').addEventListener('click', (e) => {
-      if (e.target.classList.contains('submit-project') && form.checkValidity()) {
+      if (e.target.classList.contains('submit-project')) {
         const name = `-${e.target.parentNode.querySelector('form > input').value}`;
-        InformationHolder.projectName.push(name);
+        InformationHolder.addProjectName(name);
         InformationHolder.addProject([]);
+        this.createProjectDiv();
       }
-    })
+    });
   }
 
   static createProjectDiv() {
@@ -113,21 +114,45 @@ export class MediatorDOM {
       div.classList.add('project');
       div.setAttribute('data-project-id', numberOfProjects - 1);
       document.querySelector('.projects').appendChild(div);
-    })
+    });
+  }
+
+  static changeProjectTab() {
+    document.querySelector('.projects').addEventListener('click', (e) => {
+      if (e.target.classList.contains('project')) {
+        changeTabName(e.target.textContent);
+        const deleteProject = new Image();
+        deleteProject.src = deleteProjectIcon;
+        deleteProject.classList.add('delete-project');
+        document.querySelector('.main-content').appendChild(deleteProject);
+      }
+    });
+  }
+
+  static deleteDeleteIcon() {
+    document.querySelector('.sidebar').addEventListener('click', () => {
+      const currentTab = document.querySelector('.current-tab').textContent;
+      if (currentTab === 'Home' || currentTab === 'Today' || currentTab === 'Week') {
+        const deleteIcon = document.querySelector('.delete-project');
+      if (deleteIcon !== null) deleteIcon.remove();
+    }  
+    });
   }
 
 
   static initialize() {
-    this.insertTaskDOM();
+    this.insertTask();
     this.showTaskInfo();
     this.closeTaskInfo();
     this.crossTask();
     this.showHomeTasks();
     this.showTodayTasks();
     this.showWeekTasks();
-    this.deleteTaskDOM();
+    this.deleteTask();
     this.updateTaskList();
-    this.insertProjectDOM();
+    this.insertProject();
     this.createProjectDiv();
+    this.changeProjectTab();
+    this.deleteDeleteIcon();
   }
 };
