@@ -60,11 +60,11 @@ html {
   font-weight: 600;
 }
 
-.sidebar > div {
+.sidebar > div:not(.projects) {
   cursor: pointer;
 }
 
-.sidebar > div:hover {
+.sidebar > div:hover:not(.projects) {
   background-color: rgb(198, 209, 207);
   border-radius: 10px;
 }
@@ -226,6 +226,70 @@ form {
   justify-self: end;
   cursor: pointer;
 }
+
+.projects {
+  .new-project {
+    display: none;
+  }
+
+  &:hover .new-project {
+    display: block;
+    font-size: 15px;
+    padding: 10px 0;
+    padding-left: 20px;
+  }
+}
+
+.new-project:hover {
+  cursor: pointer;
+}
+
+.project-form {
+  position: fixed;
+  gap: 10px;
+  z-index: 99;
+  top: 50%;
+  left: 50%;
+  width: clamp(100px, 200px, 300px);
+  height: clamp(50px, 100px, 150px);
+  transform: translate(-50%, -50%);
+  background-color: $secondary-color;
+  color: $primary-color;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 1px;
+}
+
+.submit-project,
+.cancel-project {
+  width: auto;
+  height: auto;
+  padding: 3px 9px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.submit-project {
+  background-color: $primary-color;
+  color: $secondary-color;
+}
+
+.submit-project:hover {
+  background-color: #2c3d74;
+  color: #a5b0ae;
+}
+
+.cancel-project {
+  background-color: $secondary-color;
+  color: $primary-color;
+}
+
+.cancel-project:hover {
+  background-color: #d4d9d8;
+  color: #152043;
+}
+
 
 @keyframes move-up {
   0% {

@@ -94,6 +94,23 @@ export class MediatorDOM {
   }
 
 
+  static insertProjectDOM() {
+    const form = document.querySelector('.project-form');
+    document.querySelector('.projects').addEventListener('click', (e) => {
+      if (e.target.classList.contains('submit-project') && form.checkValidity()) {
+        const numberOfProjects = InformationHolder.projects.length;
+        const div = document.createElement('div');
+
+        div.textContent = `-${e.target.parentNode.querySelector('form > input').value}`;
+        div.classList.add('project');
+        div.setAttribute('data-project-id', numberOfProjects - 1);
+        document.querySelector('.projects').appendChild(div);
+        InformationHolder.addProject([]);
+      }
+    })
+  }
+
+
   static initialize() {
     this.insertTaskDOM();
     this.showTaskInfo();
@@ -104,5 +121,6 @@ export class MediatorDOM {
     this.showWeekTasks();
     this.deleteTaskDOM();
     this.updateTaskList();
+    this.insertProjectDOM();
   }
 };
