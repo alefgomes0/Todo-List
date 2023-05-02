@@ -98,15 +98,21 @@ export class MediatorDOM {
     const form = document.querySelector('.project-form');
     document.querySelector('.projects').addEventListener('click', (e) => {
       if (e.target.classList.contains('submit-project') && form.checkValidity()) {
-        const numberOfProjects = InformationHolder.projects.length;
-        const div = document.createElement('div');
-
-        div.textContent = `-${e.target.parentNode.querySelector('form > input').value}`;
-        div.classList.add('project');
-        div.setAttribute('data-project-id', numberOfProjects - 1);
-        document.querySelector('.projects').appendChild(div);
+        const name = `-${e.target.parentNode.querySelector('form > input').value}`;
+        InformationHolder.projectName.push(name);
         InformationHolder.addProject([]);
       }
+    })
+  }
+
+  static createProjectDiv() {
+    const numberOfProjects = InformationHolder.projects.length;
+    InformationHolder.projectName.forEach((project) => {
+      const div = document.createElement('div');
+      div.textContent = project;
+      div.classList.add('project');
+      div.setAttribute('data-project-id', numberOfProjects - 1);
+      document.querySelector('.projects').appendChild(div);
     })
   }
 
@@ -122,5 +128,6 @@ export class MediatorDOM {
     this.deleteTaskDOM();
     this.updateTaskList();
     this.insertProjectDOM();
+    this.createProjectDiv();
   }
 };
