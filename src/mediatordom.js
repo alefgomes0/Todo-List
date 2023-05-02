@@ -107,23 +107,25 @@ export class MediatorDOM {
   }
 
   static createProjectDiv() {
-    const numberOfProjects = InformationHolder.projects.length;
-    InformationHolder.projectName.forEach((project) => {
+    const numberOfProjects = InformationHolder.projectName.length;
+    for (let i = numberOfProjects - 1; i < numberOfProjects; i++) {
       const div = document.createElement('div');
-      div.textContent = project;
+      div.textContent = InformationHolder.projectName[i];
       div.classList.add('project');
       div.setAttribute('data-project-id', numberOfProjects - 1);
-      document.querySelector('.projects').appendChild(div);
-    });
+      document.querySelector('.projects').appendChild(div);  
+    }
   }
 
   static changeProjectTab() {
     document.querySelector('.projects').addEventListener('click', (e) => {
       if (e.target.classList.contains('project')) {
         changeTabName(e.target.textContent);
+        const projectId = e.target.getAttribute('data-project-id');
         const deleteProject = new Image();
         deleteProject.src = deleteProjectIcon;
         deleteProject.classList.add('delete-project');
+        deleteProject.setAttribute('data-project-id', projectId);
         document.querySelector('.main-content').appendChild(deleteProject);
       }
     });
@@ -137,6 +139,18 @@ export class MediatorDOM {
       if (deleteIcon !== null) deleteIcon.remove();
     }  
     });
+  }
+
+  static deleteProject() {
+    document.querySelector('.main-content').addEventListener('click', (e) => {
+      if (e.target.classList.contains('delete-project')) {
+        const projectIndex = Number(e.target.getAttribute('data-project-id'));
+        InformationHolder.removeProject(projectIndex);
+        InformationHolder.removeProjectName(projectIndex);
+        document.querySelector(`div[data-project-id="${projectIndex}"]`).remove();
+        document.querySelector('.home').click();
+      }
+    })
   }
 
 
@@ -154,5 +168,6 @@ export class MediatorDOM {
     this.createProjectDiv();
     this.changeProjectTab();
     this.deleteDeleteIcon();
+    this.deleteProject();
   }
 };

@@ -19,3 +19,5 @@ projectForm.initialize();
 if (JSON.parse(localStorage.getItem('tasks')).length > 0) {
   displayTasks(0);
 }
+
+// document.querySelector('.project').remove();

@@ -17,7 +17,7 @@ export class InformationHolder {
   }
 
   static #adjustId(deletedId) {
-    const divs = document.querySelectorAll(".task");
+    const divs = document.querySelectorAll('.task');
     if (divs.length > 0) {
       divs.forEach(div => {
         if (div.id > deletedId) {
@@ -28,21 +28,36 @@ export class InformationHolder {
     }
   }
 
+  static #adjustProjectId(deletedId) {
+    const divs = document.querySelectorAll('.project');
+    if (divs.length > 0) {
+      divs.forEach(div => {
+        if (Number(div.getAttribute('data-project-id')) > deletedId) {
+          const currentId = parseInt(div.getAttribute('data-project-id').match(/\d+/)[0]);
+          div.setAttribute('data-project-id', currentId - 1);
+        }
+      });
+    }
+  }
+
   static addProject(someProject) {
     this.projects.push(someProject);
     localStorage.setItem('project', JSON.stringify(this.projects));
   }
 
-/*   static removeProject(aProject) {
-    const projectIndex = Number(aTask.id);
-    this.projects.splice(projectIndex, 1);
-    this.#adjustId(taskIndex);
+  static removeProject(aProjectIndex) {
+    this.projects.splice(aProjectIndex, 1);
+    this.#adjustProjectId(aProjectIndex);
     localStorage.setItem('project', JSON.stringify(this.projects));
-  } */
+  } 
 
   static addProjectName(someProjectName) {
     this.projectName.push(someProjectName);
     localStorage.setItem('projectName', JSON.stringify(this.projectName));
   }
 
+  static removeProjectName(projectIndex) {
+    this.projectName.splice(projectIndex, 1);
+    localStorage.setItem('projectName', JSON.stringify(this.projectName));
+  }
 }
