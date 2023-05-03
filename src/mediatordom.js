@@ -15,7 +15,7 @@ export class MediatorDOM {
       const tabText = document.querySelector('.current-tab').textContent;
       
       if (form.checkValidity()) {
-        if (tabText !== 'Home' || tabText !== 'Today' || tabText !== 'Week') {
+        if (tabText !== 'Home' && tabText !== 'Today' && tabText !== 'Week') {
           const projectIndex = findCurrentProjectIndex();
           console.log(projectIndex);
           InformationHolder.addTaskToProject(projectIndex, createTask());
