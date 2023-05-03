@@ -13,6 +13,8 @@ import {
   displayTasksProject,
   deleteTasksProject,
   findCurrentProjectIndex,
+  findTaskIndex,
+  displayTaskInfo,
 } from "./displayprojects.js";
 
 export class MediatorDOM {
@@ -38,7 +40,19 @@ export class MediatorDOM {
 
   static showTaskInfo() {
     document.querySelector(".main-content").addEventListener("click", (e) => {
-      if (e.target.classList.contains("task-n")) {
+      if (
+        e.target.classList.contains("task-n") &&
+        e.target.parentElement.classList.contains("task-project")
+      ) {
+        const projectIndex = Number(
+          e.target.parentElement.getAttribute("data-task-project")
+        );
+        const taskIndex = Number(findTaskIndex(e.target, projectIndex));
+        displayTaskInfo(projectIndex, taskIndex);
+      } else if (
+        e.target.classList.contains("task-n") &&
+        e.target.parentElement.classList.contains("task")
+      ) {
         displayAllTaskInfo(Number(e.target.parentElement.id));
       }
     });
@@ -77,15 +91,7 @@ export class MediatorDOM {
         const projectIndex = Number(
           e.target.parentElement.getAttribute("data-task-project")
         );
-        const taskName =
-          e.target.parentElement.querySelector("div > .task-n").textContent;
-        const taskDate =
-          e.target.parentElement.querySelector("div > .task-date").textContent;
-        const taskIndex = Array.from(
-          InformationHolder.projects[projectIndex]
-        ).findIndex(
-          (task) => task.name === taskName && task.dueDate === taskDate
-        );
+        const taskIndex = findTaskIndex(e.target, projectIndex);
         e.target.parentElement.remove();
         InformationHolder.removeTaskFromProject(
           Number(projectIndex),

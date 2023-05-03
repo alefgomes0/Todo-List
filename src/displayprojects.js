@@ -41,6 +41,48 @@ export function displayTasksProject(
   }
 }
 
+export function displayTaskInfo(projectIndex, arrayIndex) {
+  const infoDisplay = document.createElement("div");
+  infoDisplay.classList.add("info-display");
+
+  const taskName = document.createElement("p");
+  taskName.textContent =
+    InformationHolder.projects[projectIndex][arrayIndex].name;
+  const taskDescription = document.createElement("p");
+  taskDescription.textContent =
+    InformationHolder.projects[projectIndex][arrayIndex].description;
+  const taskDate = document.createElement("p");
+  taskDate.textContent = `Due: ${InformationHolder.projects[projectIndex][arrayIndex].dueDate}`;
+  const taskPriority = document.createElement("p");
+  taskPriority.textContent = `Priority: ${InformationHolder.projects[
+    projectIndex
+  ][arrayIndex].priority.toUpperCase()}`;
+
+  const closeInfo = new Image();
+  closeInfo.src = closeInfoPath;
+  closeInfo.classList.add("close-info");
+
+  const priorityColor = selectPriorityBorder(
+    InformationHolder.projects[projectIndex][arrayIndex].priority
+  );
+  infoDisplay.style.border = `2px solid ${priorityColor}`;
+  taskPriority.style.color = priorityColor;
+
+  infoDisplay.appendChild(closeInfo);
+  infoDisplay.appendChild(taskName);
+  infoDisplay.appendChild(taskDescription);
+  infoDisplay.appendChild(taskDate);
+  infoDisplay.appendChild(taskPriority);
+
+  document.querySelector(".main-content").appendChild(infoDisplay);
+}
+
+function selectPriorityBorder(priority) {
+  if (priority === "low") return "#2d7bd2";
+  if (priority === "medium") return "#ffc600";
+  return "#ff0018";
+}
+
 export function findCurrentProjectIndex() {
   const tabText = document.querySelector(".current-tab").textContent;
   const currentProject = Array.from(
@@ -54,4 +96,14 @@ export function deleteTasksProject() {
   taskProject.forEach((task) => {
     task.remove();
   });
+}
+
+export function findTaskIndex(element, projectIndex) {
+  const taskName =
+    element.parentElement.querySelector("div > .task-n").textContent;
+  const taskDate =
+    element.parentElement.querySelector("div > .task-date").textContent;
+  return Array.from(InformationHolder.projects[projectIndex]).findIndex(
+    (task) => task.name === taskName && task.dueDate === taskDate
+  );
 }

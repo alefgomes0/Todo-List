@@ -185,7 +185,8 @@ form {
   cursor: pointer;
 }
 
-.task:hover {
+.task:hover,
+.task-project:hover {
   background-color: #e6dede;
 }
 
