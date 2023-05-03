@@ -5,15 +5,28 @@ import { displayTasks, displayAllTasks, displayAllTaskInfo} from "./displaytasks
 import { displayTodayTasks } from "./todaytasks.js";
 import { displayWeekTasks } from "./weektasks.js";
 import deleteProjectIcon from './assets/icons/delete-project.svg';
+import {displayTasksProject, deleteTasksProject ,findCurrentProjectIndex} from './displayprojects.js';
 
 
 export class MediatorDOM {
   static insertTask() {
     document.querySelector('.submit').addEventListener('click', () => {
-      if (document.querySelector('form').checkValidity()) {
-        InformationHolder.addTask(createTask());
-        displayTasks();
-      }
+      const form = document.querySelector('form');
+      const tabText = document.querySelector('.current-tab').textContent;
+      
+      if (form.checkValidity()) {
+        if (tabText !== 'Home' || tabText !== 'Today' || tabText !== 'Week') {
+          const projectIndex = findCurrentProjectIndex();
+          console.log(projectIndex);
+          InformationHolder.addTaskToProject(projectIndex, createTask());
+          const vsf = InformationHolder.projects[projectIndex].length -1
+          displayTasksProject(vsf, projectIndex)
+        }  
+        else {
+          InformationHolder.addTask(createTask());
+          displayTasks();
+        }
+      }  
     });
   };
 
@@ -55,6 +68,7 @@ export class MediatorDOM {
   static showHomeTasks() {
     document.querySelector('.home').addEventListener('click', () => {
       changeTabName('Home');
+      deleteTasksProject();
       displayAllTasks();
     });
   }
@@ -62,6 +76,7 @@ export class MediatorDOM {
   static showTodayTasks() {
     document.querySelector('.today').addEventListener('click', () => {
       changeTabName('Today');
+      deleteTasksProject();
       displayTodayTasks();
     });
   }
@@ -69,6 +84,7 @@ export class MediatorDOM {
   static showWeekTasks() {
     document.querySelector('.week').addEventListener('click', () => {
       changeTabName('Week');
+      deleteTasksProject();
       displayAllTasks();
       displayWeekTasks();
     });
@@ -107,13 +123,21 @@ export class MediatorDOM {
   }
 
   static createProjectDiv() {
-    const numberOfProjects = InformationHolder.projectName.length;
-    for (let i = numberOfProjects - 1; i < numberOfProjects; i++) {
-      const div = document.createElement('div');
-      div.textContent = InformationHolder.projectName[i];
-      div.classList.add('project');
-      div.setAttribute('data-project-id', numberOfProjects - 1);
-      document.querySelector('.projects').appendChild(div);  
+    const numberOfProjects = InformationHolder.projects.length;
+    for (let i = numberOfProjects - 1; i < numberOfProjects; i++) {   
+      if (numberOfProjects - 1 >= 0) {
+        const deleteProject = new Image();
+        deleteProject.src = deleteProjectIcon;
+        deleteProject.classList.add('delete-project');
+        deleteProject.setAttribute('data-project-id', i);
+        document.querySelector('.main-content').appendChild(deleteProject); 
+        
+        const div = document.createElement('div');
+        div.textContent = InformationHolder.projectName[i];
+        div.classList.add('project');
+        div.setAttribute('data-project-id', numberOfProjects - 1);
+        document.querySelector('.projects').appendChild(div); 
+      }
     }
   }
 
@@ -121,12 +145,13 @@ export class MediatorDOM {
     document.querySelector('.projects').addEventListener('click', (e) => {
       if (e.target.classList.contains('project')) {
         changeTabName(e.target.textContent);
-        const projectId = e.target.getAttribute('data-project-id');
-        const deleteProject = new Image();
-        deleteProject.src = deleteProjectIcon;
-        deleteProject.classList.add('delete-project');
-        deleteProject.setAttribute('data-project-id', projectId);
-        document.querySelector('.main-content').appendChild(deleteProject);
+        const deleteIcon = document.querySelectorAll('.delete-project');
+        if (deleteIcon !== null) deleteIcon.forEach(icon => {
+          icon.style.display = 'inline';
+        });
+        deleteTasksProject();
+        const projectIndex = findCurrentProjectIndex();
+        displayTasksProject(0, projectIndex);
       }
     });
   }
@@ -135,19 +160,22 @@ export class MediatorDOM {
     document.querySelector('.sidebar').addEventListener('click', () => {
       const currentTab = document.querySelector('.current-tab').textContent;
       if (currentTab === 'Home' || currentTab === 'Today' || currentTab === 'Week') {
-        const deleteIcon = document.querySelector('.delete-project');
-      if (deleteIcon !== null) deleteIcon.remove();
-    }  
+        const deleteIcon = document.querySelectorAll('.delete-project');
+        if (deleteIcon !== null) deleteIcon.forEach(icon => {
+          icon.style.display = 'none';
+        });
+      }  
     });
   }
 
   static deleteProject() {
     document.querySelector('.main-content').addEventListener('click', (e) => {
       if (e.target.classList.contains('delete-project')) {
-        const projectIndex = Number(e.target.getAttribute('data-project-id'));
+        const projectIndex = findCurrentProjectIndex();
         InformationHolder.removeProject(projectIndex);
         InformationHolder.removeProjectName(projectIndex);
         document.querySelector(`div[data-project-id="${projectIndex}"]`).remove();
+        document.querySelector(`img[data-project-id="${projectIndex}"]`).remove();
         document.querySelector('.home').click();
       }
     })

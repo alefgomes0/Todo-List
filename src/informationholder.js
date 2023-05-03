@@ -30,6 +30,8 @@ export class InformationHolder {
 
   static #adjustProjectId(deletedId) {
     const divs = document.querySelectorAll('.project');
+    const deleteButtons = document.querySelectorAll('.delete-project');
+
     if (divs.length > 0) {
       divs.forEach(div => {
         if (Number(div.getAttribute('data-project-id')) > deletedId) {
@@ -38,10 +40,24 @@ export class InformationHolder {
         }
       });
     }
+
+    if (deleteButtons.length > 0) {
+      deleteButtons.forEach(button => {
+        if (Number(button.getAttribute('data-project-id')) > deletedId) {
+          const id = Number(button.getAttribute('data-project-id').match(/\d+/)[0]);
+          button.setAttribute('data-project-id', id - 1);
+        }
+      });
+    }
   }
 
   static addProject(someProject) {
     this.projects.push(someProject);
+    localStorage.setItem('project', JSON.stringify(this.projects));
+  }
+
+  static addTaskToProject(projectIndex, task) {
+    this.projects[projectIndex].push(task);
     localStorage.setItem('project', JSON.stringify(this.projects));
   }
 
