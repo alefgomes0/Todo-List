@@ -10,11 +10,11 @@ export function getTodayDate() {
   return `${year}-${month}-${day}`;
 }
 
-
 export function displayTodayTasks() {
   const todayDate = getTodayDate();
-  const allTasks = document.querySelectorAll('.task-date');
-  allTasks.forEach(task => {
-    if (task.textContent !== todayDate) task.parentElement.style.display = 'none';
+  const allTasks = document.querySelectorAll(".task-date");
+  allTasks.forEach((task) => {
+    if (task.textContent !== todayDate)
+      task.parentElement.style.display = "none";
   });
 }

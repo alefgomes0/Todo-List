@@ -1,36 +1,36 @@
 export const ManageForm = () => ({
-  addTaskButton: document.querySelector('.add-task'),
-  form: document.querySelector('form'),
+  addTaskButton: document.querySelector(".add-task"),
+  form: document.querySelector("form"),
 
   clearForm() {
-    const formInputs = Array.from(document.querySelectorAll('form input'));
+    const formInputs = Array.from(document.querySelectorAll("form input"));
     formInputs.forEach((input) => {
-      input.value = '';
-    })
-    document.querySelector('textarea').value = '';
+      input.value = "";
+    });
+    document.querySelector("textarea").value = "";
   },
 
   openForm() {
-    this.addTaskButton.addEventListener('click', () => {
-      this.form.style.display = 'grid';
+    this.addTaskButton.addEventListener("click", () => {
+      this.form.style.display = "grid";
     });
   },
 
   closeForm() {
-    this.form.style.display = 'none';
+    this.form.style.display = "none";
   },
 
   cancel() {
-    const closeFormButton = document.querySelector('.cancel');
-    closeFormButton.addEventListener('click', () => {
+    const closeFormButton = document.querySelector(".cancel");
+    closeFormButton.addEventListener("click", () => {
       this.closeForm();
       this.clearForm();
     });
   },
 
   submitForm() {
-    const submitButton = document.querySelector('.submit');
-    submitButton.addEventListener('click', () => {
+    const submitButton = document.querySelector(".submit");
+    submitButton.addEventListener("click", () => {
       if (this.form.checkValidity()) {
         this.closeForm();
         this.clearForm();

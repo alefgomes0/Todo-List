@@ -1,25 +1,24 @@
 export class InformationHolder {
-  static tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  static projects = JSON.parse(localStorage.getItem('project')) || [];
-  static projectName = JSON.parse(localStorage.getItem('projectName')) || [];
+  static tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  static projects = JSON.parse(localStorage.getItem("project")) || [];
+  static projectName = JSON.parse(localStorage.getItem("projectName")) || [];
 
-  
   static addTask(someTask) {
     this.tasks.push(someTask);
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
 
   static removeTask(aTask) {
     const taskIndex = Number(aTask.id);
     this.tasks.splice(taskIndex, 1);
     this.#adjustId(taskIndex);
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
 
   static #adjustId(deletedId) {
-    const divs = document.querySelectorAll('.task');
+    const divs = document.querySelectorAll(".task");
     if (divs.length > 0) {
-      divs.forEach(div => {
+      divs.forEach((div) => {
         if (div.id > deletedId) {
           const currentId = parseInt(div.id.match(/\d+/)[0]);
           div.id = div.id.replace(currentId, currentId - 1);
@@ -29,23 +28,27 @@ export class InformationHolder {
   }
 
   static #adjustProjectId(deletedId) {
-    const divs = document.querySelectorAll('.project');
-    const deleteButtons = document.querySelectorAll('.delete-project');
+    const divs = document.querySelectorAll(".project");
+    const deleteButtons = document.querySelectorAll(".delete-project");
 
     if (divs.length > 0) {
-      divs.forEach(div => {
-        if (Number(div.getAttribute('data-project-id')) > deletedId) {
-          const currentId = parseInt(div.getAttribute('data-project-id').match(/\d+/)[0]);
-          div.setAttribute('data-project-id', currentId - 1);
+      divs.forEach((div) => {
+        if (Number(div.getAttribute("data-project-id")) > deletedId) {
+          const currentId = parseInt(
+            div.getAttribute("data-project-id").match(/\d+/)[0]
+          );
+          div.setAttribute("data-project-id", currentId - 1);
         }
       });
     }
 
     if (deleteButtons.length > 0) {
-      deleteButtons.forEach(button => {
-        if (Number(button.getAttribute('data-project-id')) > deletedId) {
-          const id = Number(button.getAttribute('data-project-id').match(/\d+/)[0]);
-          button.setAttribute('data-project-id', id - 1);
+      deleteButtons.forEach((button) => {
+        if (Number(button.getAttribute("data-project-id")) > deletedId) {
+          const id = Number(
+            button.getAttribute("data-project-id").match(/\d+/)[0]
+          );
+          button.setAttribute("data-project-id", id - 1);
         }
       });
     }
@@ -53,27 +56,27 @@ export class InformationHolder {
 
   static addProject(someProject) {
     this.projects.push(someProject);
-    localStorage.setItem('project', JSON.stringify(this.projects));
+    localStorage.setItem("project", JSON.stringify(this.projects));
   }
 
   static addTaskToProject(projectIndex, task) {
     this.projects[projectIndex].push(task);
-    localStorage.setItem('project', JSON.stringify(this.projects));
+    localStorage.setItem("project", JSON.stringify(this.projects));
   }
 
   static removeProject(aProjectIndex) {
     this.projects.splice(aProjectIndex, 1);
     this.#adjustProjectId(aProjectIndex);
-    localStorage.setItem('project', JSON.stringify(this.projects));
-  } 
+    localStorage.setItem("project", JSON.stringify(this.projects));
+  }
 
   static addProjectName(someProjectName) {
     this.projectName.push(someProjectName);
-    localStorage.setItem('projectName', JSON.stringify(this.projectName));
+    localStorage.setItem("projectName", JSON.stringify(this.projectName));
   }
 
   static removeProjectName(projectIndex) {
     this.projectName.splice(projectIndex, 1);
-    localStorage.setItem('projectName', JSON.stringify(this.projectName));
+    localStorage.setItem("projectName", JSON.stringify(this.projectName));
   }
 }
