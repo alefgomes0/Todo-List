@@ -64,6 +64,11 @@ export class InformationHolder {
     localStorage.setItem("project", JSON.stringify(this.projects));
   }
 
+/*   static removeTaskFromProject(projectIndex, taskIndex) {
+    this.projects[projectIndex].splice(taskIndex, 1);
+    localStorage.setItem("project", JSON.stringify(this.projects));
+  } */
+
   static removeProject(aProjectIndex) {
     this.projects.splice(aProjectIndex, 1);
     this.#adjustProjectId(aProjectIndex);

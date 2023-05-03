@@ -72,6 +72,17 @@ export class MediatorDOM {
         InformationHolder.removeTask(e.target.parentElement);
         e.target.parentElement.remove();
       }
+
+/*       if (e.target.classList.contains("delete-task-project")) {
+        const [projectIndex, taskIndex] = e.target.parentElement
+          .getAttribute("data-task-project")
+          .split("-");
+        e.target.parentElement.remove();
+        InformationHolder.removeTaskFromProject(
+          Number(projectIndex),
+          Number(taskIndex)
+        );
+      } */
     });
   }
 
@@ -137,9 +148,9 @@ export class MediatorDOM {
     });
   }
 
-  static createProjectDiv() {
+  static createProjectDiv(iterateFrom = InformationHolder.projects.length - 1) {
     const numberOfProjects = InformationHolder.projects.length;
-    for (let i = numberOfProjects - 1; i < numberOfProjects; i++) {
+    for (let i = iterateFrom; i < numberOfProjects; i++) {
       if (numberOfProjects - 1 >= 0) {
         const deleteProject = new Image();
         deleteProject.src = deleteProjectIcon;
@@ -150,7 +161,7 @@ export class MediatorDOM {
         const div = document.createElement("div");
         div.textContent = InformationHolder.projectName[i];
         div.classList.add("project");
-        div.setAttribute("data-project-id", numberOfProjects - 1);
+        div.setAttribute("data-project-id", i);
         document.querySelector(".projects").appendChild(div);
       }
     }
@@ -217,7 +228,7 @@ export class MediatorDOM {
     this.deleteTask();
     this.updateTaskList();
     this.insertProject();
-    this.createProjectDiv();
+    this.createProjectDiv(0);
     this.changeProjectTab();
     this.deleteDeleteIcon();
     this.deleteProject();

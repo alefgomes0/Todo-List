@@ -198,11 +198,13 @@ form {
   border-bottom: 1px solid $primary-color;
 }
 
-.delete-task {
+.delete-task,
+.delete-task-project {
   cursor: pointer;
 }
 
-.delete-task:hover {
+.delete-task:hover,
+.delete-task-project:hover {
   animation: move-up 0.5s ease-in-out;
 }
 
