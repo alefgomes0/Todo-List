@@ -15,7 +15,7 @@ export function displayTasksProject(
   for (let i = iterateFrom; i < numberOfProjects; i++) {
     const div = document.createElement("div");
     div.classList.add("task-project");
-    div.setAttribute("data-task-project", `${projectIndex}-${i}`);
+    div.setAttribute("data-task-project", `${projectIndex}`);
 
     const taskDone = document.createElement("input");
     taskDone.type = "checkbox";

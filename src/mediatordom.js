@@ -73,16 +73,25 @@ export class MediatorDOM {
         e.target.parentElement.remove();
       }
 
-/*       if (e.target.classList.contains("delete-task-project")) {
-        const [projectIndex, taskIndex] = e.target.parentElement
-          .getAttribute("data-task-project")
-          .split("-");
+      if (e.target.classList.contains("delete-task-project")) {
+        const projectIndex = Number(
+          e.target.parentElement.getAttribute("data-task-project")
+        );
+        const taskName =
+          e.target.parentElement.querySelector("div > .task-n").textContent;
+        const taskDate =
+          e.target.parentElement.querySelector("div > .task-date").textContent;
+        const taskIndex = Array.from(
+          InformationHolder.projects[projectIndex]
+        ).findIndex(
+          (task) => task.name === taskName && task.dueDate === taskDate
+        );
         e.target.parentElement.remove();
         InformationHolder.removeTaskFromProject(
           Number(projectIndex),
           Number(taskIndex)
         );
-      } */
+      }
     });
   }
 
