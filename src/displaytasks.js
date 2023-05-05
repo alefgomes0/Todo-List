@@ -77,6 +77,7 @@ export function displayAllTasks() {
   const allTasks = document.querySelectorAll(".task-date");
   allTasks.forEach((task) => {
     task.parentElement.style.display = "flex";
+    if (window.innerWidth <= "500") task.parentElement.style.display = "grid";
   });
 }
 

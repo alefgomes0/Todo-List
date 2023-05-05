@@ -127,7 +127,7 @@ form {
   font-weight: 500;
   padding: 10px 20px;
   border-radius: 10px;
-  box-shadow: 0 1px 1px;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, .1);
 }
 
 .widget {
@@ -162,7 +162,7 @@ form {
   justify-content: space-between;
   font-weight: 600;
   padding: 0 10px;
-  padding-left: 40px;
+  padding-left: 30px;
 }
 
 
@@ -225,7 +225,7 @@ form {
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 10px;
-  box-shadow: 0 1px 1px;
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .1);
   color: $primary-color;
   overflow-y: auto;
 }
@@ -235,21 +235,20 @@ form {
   cursor: pointer;
 }
 
-.projects {
-  .new-project {
-    display: none;
-  }
+.new-project {
+  font-size: 15px;
+  padding: 10px 0;
+  padding-left: 20px;
+}
 
-  &:hover .new-project {
-    display: block;
-    font-size: 15px;
-    padding: 10px 0;
-    padding-left: 20px;
-  }
+.project {
+  padding-bottom: 10px;
 }
 
 .new-project:hover {
   cursor: pointer;
+  background-color: rgb(198, 209, 207);
+  border-radius: 10px;
 }
 
 .project-form {
@@ -266,7 +265,7 @@ form {
   font-weight: 500;
   padding: 10px 20px;
   border-radius: 10px;
-  box-shadow: 0 1px 1px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
 }
 
 .submit-project,
@@ -306,6 +305,7 @@ form {
 
 .project:hover {
   background-color: #d4d9d8;
+  border-radius: 10px;
 }
 
 .delete-project {
@@ -363,7 +363,8 @@ a:visited{
     grid-row: 2 / 3;
   }
 
-  .task {
+  .task,
+  .task-project {
     display: grid;
     grid-template-rows: auto auto;
     grid-template-columns: auto auto;
@@ -383,7 +384,8 @@ a:visited{
     justify-self: end;
   }
 
-  .task > img {
+  .task > img,
+  .task-project > img {
     justify-self: end;
     grid-column: 2 / -1;
     padding-right: 20px;
@@ -399,7 +401,26 @@ a:visited{
     padding-right: 0;
   }
   
-  .task > * {
+  .task > *,
+  .task-project > * {
     font-size: 12px;
+  }
+
+  .task-n {
+    grid-row: 2 / -1;
+    grid-column: 1 / 2;
+  }
+
+  .task-date {
+    grid-row: 2 / -1;
+    grid-column: 2 / -1;
+  }
+
+  input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    align-self: center;
+    padding: 0;
+    margin: 0;
   }
 }
