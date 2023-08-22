@@ -81,6 +81,14 @@ export function displayAllTasks() {
   });
 }
 
+export function displayAllTaskQuantity() {
+  const allTasksQuantity = document.querySelectorAll(".task-date").length;
+  const h5 = document.createElement("h5");
+  h5.textContent = allTasksQuantity;
+  const home = document.getElementsByClassName("home");
+  home[0].appendChild(h5);
+}
+
 export function removeAllTasks() {
   const allTasks = document.querySelectorAll(
     ".home-tasks > :not(.tasks-header)"

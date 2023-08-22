@@ -1,3 +1,7 @@
+import { displayAllTaskQuantity } from "./displaytasks";
+import { displayTodayTasks, displayTodayTasksQuantity } from "./todaytasks";
+import { displayWeekTasksQuantity } from "./weektasks";
+
 export const ManageForm = () => ({
   addTaskButton: document.querySelector(".add-task"),
   form: document.querySelector("form"),

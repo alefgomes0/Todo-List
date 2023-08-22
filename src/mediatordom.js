@@ -232,6 +232,7 @@ export class MediatorDOM {
     });
   }
 
+
   static initialize() {
     this.insertTask();
     this.showTaskInfo();
